@@ -1,0 +1,10 @@
+.sidebar{
+    cursor: pointer;
+}
+.sidebar:hover{
+    background-color: #EDE6DB;
+}
+
+.sidebar:hover .sidebar-icon{
+    color: #000!important
+}
