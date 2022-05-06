@@ -1,10 +1,10 @@
 import {
   Box,
   Button,
-  Center,
   Circle,
   Flex,
   Icon,
+  Text,
   useColorMode,
   VStack,
 } from "@chakra-ui/react";
@@ -12,38 +12,57 @@ import React from "react";
 import { navlink } from "../../navlink";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
 
+import "../../styles/style.css";
+
 const Sidebar = ({ isOpen }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
     <Flex
-      h="100vh"
+      overflowY="auto"
+      overflowX="hidden"
       flexDirection="column"
-      justifyContent="space-between"
-      alignItems={"center"}
+      bg="primary"
     >
-      <Box whiteSpace="nowrap">
-        <Center color="text" h="4em">
-          LOGO
-        </Center>
-        <VStack>
+      <Box borderBottom="1px solid rgba(179,184,212,.2)">
+        <Text
+          color="text"
+          textTransform="uppercase"
+          fontWeight="bold"
+          letterSpacing="1px"
+          overflow="hidden"
+          textOverflow="ellipsis"
+          whiteSpace="nowrap"
+          p="14px"
+        >
+          Logo
+        </Text>
+      </Box>
+      <Box flexGrow="1">
+        <VStack pt="20px">
           {navlink.map(({ icon }) => (
-            <Circle size="40px" bg="secondary">
-              <Icon as={icon} boxSize={5} style={{ color: "#fff" }} />
+            <Circle size="40px" bg="secondary" className="sidebar">
+              <Icon
+                as={icon}
+                boxSize={5}
+                style={{ color: "#fff" }}
+                className="sidebar-icon"
+              />
             </Circle>
           ))}
         </VStack>
       </Box>
-      <Box>
-        <Button
-          size="sm"
-          onClick={toggleColorMode}
-          borderRadius="full"
-          mb="3"
-          h="37px"
-        >
-          {colorMode === "light" ? <BsFillSunFill /> : <BsFillMoonFill />}
-        </Button>
+      <Box borderTop="1px solid rgba(179,184,212,.2)">
+        <VStack p="14px">
+          <Button
+            size="sm"
+            onClick={toggleColorMode}
+            borderRadius="full"
+            h="37px"
+          >
+            {colorMode === "light" ? <BsFillSunFill /> : <BsFillMoonFill />}
+          </Button>
+        </VStack>
       </Box>
     </Flex>
   );
