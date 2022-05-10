@@ -1,13 +1,22 @@
 * {
     outline: 1px solid red;
 }
-.sidebar{
-    cursor: pointer;
+.nav_wrapper:hover .nav_title{
+    color: #000
 }
-.sidebar:hover{
-    background-color: #EDE6DB;
+.nav_wrapper:hover .nav_icon{
+    color: #000
+}
+.nav_wrapper:hover .nav_icon_wrapper{
+    background-color: #EDE6DB
 }
 
-.sidebar:hover .sidebar-icon{
-    color: #000!important
+.shake:hover{ 
+    animation: shake 500ms infinite;
+    animation-timing-function: linear;   
 }
+@keyframes shake {
+    0% { transform: rotate(0.5deg); }
+    50% { transform: rotate(-0.5deg); }
+    100% { transform: rotate(0.5deg); }
+  }
