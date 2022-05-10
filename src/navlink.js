@@ -20,7 +20,7 @@ export const navlink = [
     name: "Team",
     icon: AiOutlineTeam,
     path: "/team",
-    accordion: { name: "Team List", icon: "", path: "/team/team-list" },
+    accordion: [{ name: "Team List", icon: "", path: "/team/team-list" }],
     defaultShow: true,
   },
   {

@@ -1,6 +1,6 @@
-* {
+/* * {
     outline: 1px solid red;
-}
+} */
 .nav_wrapper:hover .nav_title{
     color: #000
 }
@@ -10,7 +10,9 @@
 .nav_wrapper:hover .nav_icon_wrapper{
     background-color: #EDE6DB
 }
-
+.nav_wrapper:hover .accordion_icon{
+    color: #000
+}
 .shake:hover{ 
     animation: shake 500ms infinite;
     animation-timing-function: linear;   
@@ -20,3 +22,15 @@
     50% { transform: rotate(-0.5deg); }
     100% { transform: rotate(0.5deg); }
   }
+
+
+  .accordion_button:hover{
+    background: transparent!important;
+  }
+  
+  .accordion_button:focus{
+    box-shadow: unset!important;
+  }
+.menu_icon_wrapper:hover .nav_icon{
+    color: #000!important
+}

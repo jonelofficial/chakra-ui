@@ -8,14 +8,14 @@ import Hamburger from "hamburger-react";
 import SingleSidebar from "./SingleSidebar";
 import AccordionSidebar from "./AccordionSidebar";
 
-const Sidebar = () => {
+const Sidebar = ({ token }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const [isOpen, setOpen] = useState(false);
 
   return (
     <Flex
       bg="primary"
-      w={isOpen ? "170px" : "65px"}
+      w={isOpen ? "200px" : "65px"}
       transition={isOpen ? "width .15s" : "width .5s"}
       justifyContent="space-between"
       flexDirection="column"
@@ -26,7 +26,7 @@ const Sidebar = () => {
         </Flex>
         <Flex flexDirection="column">
           {navlink.map(({ name, icon, path, accordion, defaultShow }, index) =>
-            defaultShow && accordion.name ? (
+            defaultShow && accordion.length ? (
               <AccordionSidebar
                 key={index}
                 name={name}
@@ -37,7 +37,7 @@ const Sidebar = () => {
               />
             ) : (
               defaultShow &&
-              !accordion.name && (
+              !accordion.length && (
                 <SingleSidebar
                   key={index}
                   name={name}
@@ -45,6 +45,32 @@ const Sidebar = () => {
                   path={path}
                   isOpen={isOpen}
                 />
+              )
+            )
+          )}
+
+          {navlink.map(({ name, accordion, icon, path, defaultShow }, index) =>
+            token.priviledge.map((index) =>
+              index === name.toUpperCase() && accordion.length ? (
+                <AccordionSidebar
+                  key={index}
+                  name={name}
+                  accordion={accordion}
+                  icon={icon}
+                  path={path}
+                  isOpen={isOpen}
+                />
+              ) : (
+                index === name.toUpperCase() &&
+                !accordion.length && (
+                  <SingleSidebar
+                    key={index}
+                    name={name}
+                    icon={icon}
+                    path={path}
+                    isOpen={isOpen}
+                  />
+                )
               )
             )
           )}

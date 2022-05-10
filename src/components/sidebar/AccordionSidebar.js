@@ -8,56 +8,120 @@ import {
   Icon,
   Text,
   AccordionPanel,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
+  IconButton,
 } from "@chakra-ui/react";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { navlink } from "../../navlink";
 
 const AccordionSidebar = ({ name, icon, path, accordion, isOpen }) => {
-  console.log(accordion);
   return (
-    <Accordion allowMultiple>
-      <AccordionItem>
-        <NavLink to={path}>
-          <AccordionButton>
-            <Flex
-              className="nav_wrapper"
-              px="2"
-              alignItems="center"
-              bg={isOpen && "secondary"}
-              borderRadius={isOpen && "xl"}
-              my={isOpen && "1"}
-              mx={isOpen && "2"}
-              p={isOpen && "3"}
-              _hover={isOpen && { backgroundColor: "accent" }}
-              cursor={isOpen && "pointer"}
+    <>
+      <Accordion allowMultiple display={!isOpen && "none"}>
+        <AccordionItem border={"0px"}>
+          <NavLink to={path}>
+            <AccordionButton
+              className="accordion_button"
+              p="0"
+              w="100%"
+              outline="unset"
             >
-              <Box
-                className="nav_icon_wrapper"
-                my={isOpen ? "0" : "1"}
-                p={isOpen ? "0" : "3"}
-                lineHeight="8px"
-                bg={!isOpen && "secondary"}
-                borderRadius="xl"
-                cursor="pointer"
-                _hover={{ backgroundColor: "accent" }}
+              <Flex
+                className="nav_wrapper"
+                w="100%"
+                px="2"
+                alignItems="center"
+                bg={isOpen && "secondary"}
+                borderRadius={isOpen && "xl"}
+                my={isOpen && "1"}
+                mx={isOpen && "2"}
+                p={isOpen && "3"}
+                _hover={isOpen && { backgroundColor: "accent" }}
+                cursor={isOpen && "pointer"}
               >
-                <Icon className="nav_icon" boxSize="6" as={icon} color="text" />
-              </Box>
-              <Text
-                className="nav_title"
-                display={isOpen ? "block" : "none"}
-                opacity={isOpen ? "1" : "0"}
-                transition={isOpen && "visibility 0s, opacity 0.1s linear"}
-                ml="3"
-                color="text"
+                <Box
+                  className="nav_icon_wrapper"
+                  my={isOpen ? "0" : "1"}
+                  p={isOpen ? "0" : "3"}
+                  lineHeight="8px"
+                  bg={!isOpen && "secondary"}
+                  borderRadius="xl"
+                  cursor="pointer"
+                  _hover={{ backgroundColor: "accent" }}
+                >
+                  <Icon
+                    className="nav_icon"
+                    boxSize="6"
+                    as={icon}
+                    color="text"
+                  />
+                </Box>
+                <Text
+                  className="nav_title"
+                  display={isOpen ? "block" : "none"}
+                  opacity={isOpen ? "1" : "0"}
+                  transition={isOpen && "visibility 0s, opacity 0.1s linear"}
+                  ml="3"
+                  color="text"
+                >
+                  {name}
+                </Text>
+                <AccordionIcon
+                  color="text"
+                  display={isOpen ? "block" : "none"}
+                  className="accordion_icon"
+                />
+              </Flex>
+            </AccordionButton>
+          </NavLink>
+          {accordion.map(({ name, path }, index) => (
+            <NavLink to={path} key={index}>
+              <AccordionPanel
+                py={2.5}
+                color={"#fff"}
+                cursor={"pointer"}
+                _hover={{ color: "secondary" }}
               >
                 {name}
-              </Text>
-            </Flex>
-          </AccordionButton>
-        </NavLink>
-      </AccordionItem>
-    </Accordion>
+              </AccordionPanel>
+            </NavLink>
+          ))}
+        </AccordionItem>
+      </Accordion>
+
+      {/* Show this when sidebar is close */}
+      <Box display={!isOpen ? "block" : "none"} px="2">
+        <Menu>
+          <NavLink to={path}>
+            <MenuButton
+              className="menu_icon_wrapper"
+              my={isOpen ? "0" : "1"}
+              p={isOpen ? "0" : "3"}
+              lineHeight="8px"
+              bg={!isOpen && "secondary"}
+              borderRadius="xl"
+              cursor="pointer"
+              _hover={{ backgroundColor: "accent" }}
+            >
+              <Icon className="nav_icon" boxSize="6" as={icon} color="text" />
+            </MenuButton>
+          </NavLink>
+          <MenuList>
+            {accordion.map(({ name, path }, index) => (
+              <NavLink to={path} key={index}>
+                <MenuItem cursor={"pointer"} _hover={{ color: "secondary" }}>
+                  {name}
+                </MenuItem>
+              </NavLink>
+            ))}
+          </MenuList>
+        </Menu>
+      </Box>
+    </>
   );
 };
 
