@@ -15,38 +15,41 @@ import React from "react";
 import { AiOutlineLogout } from "react-icons/ai";
 import { SettingsIcon } from "@chakra-ui/icons";
 import Hamburger from "hamburger-react";
+import { useNavigate } from "react-router-dom";
 
-const Header = ({ isOpen, setOpen }) => {
+const Header = ({ token }) => {
   //   const bg = useColorModeValue("primary", "primary");
   const { colorMode } = useColorMode();
   const color = useColorModeValue("gray.800", "#fff");
-
-  console.log(isOpen);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+    window.location.reload(true);
+  };
 
   return (
-    <Box h="100%" w="100%">
+    <Box w="100%" h="auto">
       <Flex p={2} justifyContent="space-between">
         <Flex alignItems="center">
-          <Hamburger
-            hideOutline={false}
-            rounded
-            size={20}
-            color={colorMode === "light" ? "#000" : "#fff"}
-            toggled={isOpen}
-            toggle={setOpen}
-          />
           <Text color={color} fontSize="xl" fontWeight="semibold">
-            System
+            System Title
           </Text>
         </Flex>
+
         <Flex alignItems="center">
+          <Text fontSize="lg" fontWeight="semibold" mr="3">
+            Hello {token.firstName}
+          </Text>
           <Menu>
             <MenuButton>
               <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
             </MenuButton>
             <MenuList>
               <MenuItem icon={<SettingsIcon />}>Setting</MenuItem>
-              <MenuItem icon={<AiOutlineLogout />}>Logout</MenuItem>
+              <MenuItem icon={<AiOutlineLogout />} onClick={handleLogout}>
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>
