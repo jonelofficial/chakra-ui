@@ -12,11 +12,10 @@ import {
   Menu,
   MenuList,
   MenuItem,
-  IconButton,
+  Tooltip,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { navlink } from "../../navlink";
 
 const AccordionSidebar = ({ name, icon, path, accordion, isOpen }) => {
   return (
@@ -94,33 +93,35 @@ const AccordionSidebar = ({ name, icon, path, accordion, isOpen }) => {
       </Accordion>
 
       {/* Show this when sidebar is close */}
-      <Box display={!isOpen ? "block" : "none"} px="2">
-        <Menu>
-          <NavLink to={path}>
-            <MenuButton
-              className="menu_icon_wrapper"
-              my={isOpen ? "0" : "1"}
-              p={isOpen ? "0" : "3"}
-              lineHeight="8px"
-              bg={!isOpen && "secondary"}
-              borderRadius="xl"
-              cursor="pointer"
-              _hover={{ backgroundColor: "accent" }}
-            >
-              <Icon className="nav_icon" boxSize="6" as={icon} color="text" />
-            </MenuButton>
-          </NavLink>
-          <MenuList>
-            {accordion.map(({ name, path }, index) => (
-              <NavLink to={path} key={index}>
-                <MenuItem cursor={"pointer"} _hover={{ color: "secondary" }}>
-                  {name}
-                </MenuItem>
-              </NavLink>
-            ))}
-          </MenuList>
-        </Menu>
-      </Box>
+      <Tooltip hasArrow label={name} placement="auto">
+        <Box display={!isOpen ? "block" : "none"} px="2">
+          <Menu>
+            <NavLink to={path}>
+              <MenuButton
+                className="menu_icon_wrapper"
+                my={isOpen ? "0" : "1"}
+                p={isOpen ? "0" : "3"}
+                lineHeight="8px"
+                bg={"secondary"}
+                borderRadius="xl"
+                cursor="pointer"
+                _hover={{ backgroundColor: "accent" }}
+              >
+                <Icon className="nav_icon" boxSize="6" as={icon} color="text" />
+              </MenuButton>
+            </NavLink>
+            <MenuList>
+              {accordion.map(({ name, path }, index) => (
+                <NavLink to={path} key={index}>
+                  <MenuItem cursor={"pointer"} _hover={{ color: "secondary" }}>
+                    {name}
+                  </MenuItem>
+                </NavLink>
+              ))}
+            </MenuList>
+          </Menu>
+        </Box>
+      </Tooltip>
     </>
   );
 };

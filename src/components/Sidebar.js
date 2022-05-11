@@ -1,12 +1,12 @@
 import { Box, Button, Flex, Icon, Text, useColorMode } from "@chakra-ui/react";
 import React, { useState } from "react";
-import { navlink } from "../../navlink";
+import { navlink } from "../navlink";
 import { BsFillSunFill, BsFillMoonFill } from "react-icons/bs";
-import "../../styles/style.css";
+import "../styles/style.css";
 
 import Hamburger from "hamburger-react";
-import SingleSidebar from "./SingleSidebar";
-import AccordionSidebar from "./AccordionSidebar";
+import SingleSidebar from "../composition/sidebar/SingleSidebar";
+import AccordionSidebar from "../composition/sidebar/AccordionSidebar";
 
 const Sidebar = ({ token }) => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -25,6 +25,7 @@ const Sidebar = ({ token }) => {
           <Hamburger toggled={isOpen} toggle={setOpen} color="#fff" size={25} />
         </Flex>
         <Flex flexDirection="column">
+          {" "}
           {navlink.map(({ name, icon, path, accordion, defaultShow }, index) =>
             defaultShow && accordion.length ? (
               <AccordionSidebar
@@ -48,7 +49,6 @@ const Sidebar = ({ token }) => {
               )
             )
           )}
-
           {navlink.map(({ name, accordion, icon, path, defaultShow }, index) =>
             token.priviledge.map((index) =>
               index === name.toUpperCase() && accordion.length ? (

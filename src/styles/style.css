@@ -34,3 +34,10 @@
 .menu_icon_wrapper:hover .nav_icon{
     color: #000!important
 }
+/* .menu_icon_wrapper:active{
+    background-color:red;
+} */
+/* .menu_icon_wrapper:active .nav_icon{
+    color: #000;
+} */
+
