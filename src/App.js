@@ -2,9 +2,11 @@ import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import UserToken from "./auth/UserToken";
+
+// Main Components
 import Header from "./components/Header";
 import Login from "./components/Login";
-import Sidebar from "./components/sidebar/Sidebar";
+import Sidebar from "./components/Sidebar";
 
 // Routes
 import Dashboard from "./containers/Dashboard";
