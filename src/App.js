@@ -15,11 +15,20 @@ import TeamList from "./containers/team/TeamList";
 import Calendar from "./containers/Calendar";
 import Request from "./containers/Request";
 import Support from "./containers/Support";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 // Style
 import "./styles/style.css";
+import EditTeam from "./containers/team/EditTeam";
 
 const App = () => {
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+      },
+    },
+  });
   const { token, setToken } = UserToken();
 
   if (!token) {
@@ -34,7 +43,23 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/team/team-list" element={<TeamList />} />
+            <Route
+              path="/team/team-list"
+              element={
+                <QueryClientProvider client={queryClient}>
+                  <TeamList />
+                </QueryClientProvider>
+              }
+            >
+              <Route
+                path="/team/team-list/edit-team/:id"
+                element={
+                  <QueryClientProvider client={queryClient}>
+                    <EditTeam />
+                  </QueryClientProvider>
+                }
+              />
+            </Route>
             <Route path="/calendar" element={<Calendar />} />
             <Route path="/request" element={<Request />} />
             <Route path="/support" element={<Support />} />
