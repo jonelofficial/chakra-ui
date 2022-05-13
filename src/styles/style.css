@@ -1,38 +1,56 @@
 /* * {
     outline: 1px solid red;
 } */
-.nav_wrapper:hover .nav_title{
-    color: #000
+.nav_wrapper:hover .nav_title {
+  color: #000;
 }
-.nav_wrapper:hover .nav_icon{
-    color: #000
+.nav_wrapper:hover .nav_icon {
+  color: #000;
 }
-.nav_wrapper:hover .nav_icon_wrapper{
-    background-color: #EDE6DB
+.nav_wrapper:hover .nav_icon_wrapper {
+  background-color: #ede6db;
 }
-.nav_wrapper:hover .accordion_icon{
-    color: #000
+.nav_wrapper:hover .accordion_icon {
+  color: #000;
 }
-.shake:hover{ 
-    animation: shake 500ms infinite;
-    animation-timing-function: linear;   
+.shake:hover {
+  animation: shake 500ms infinite;
+  animation-timing-function: linear;
 }
 @keyframes shake {
-    0% { transform: rotate(0.5deg); }
-    50% { transform: rotate(-0.5deg); }
-    100% { transform: rotate(0.5deg); }
+  0% {
+    transform: rotate(0.5deg);
   }
+  50% {
+    transform: rotate(-0.5deg);
+  }
+  100% {
+    transform: rotate(0.5deg);
+  }
+}
 
+.accordion_button:hover {
+  background: transparent !important;
+}
 
-  .accordion_button:hover{
-    background: transparent!important;
-  }
-  
-  .accordion_button:focus{
-    box-shadow: unset!important;
-  }
-.menu_icon_wrapper:hover .nav_icon{
-    color: #000!important
+.accordion_button:focus {
+  box-shadow: unset !important;
+}
+.menu_icon_wrapper:hover .nav_icon {
+  color: #000 !important;
+}
+.datePicker {
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  height: 2.5rem;
+  padding: 0 16px;
+  width: 115px;
+  background: transparent;
+}
+
+.datePicker:focus {
+  border-color: #3182ce !important;
+  box-shadow: 0 0 0 1px #3182ce !important;
 }
 /* .menu_icon_wrapper:active{
     background-color:red;
@@ -40,4 +58,3 @@
 /* .menu_icon_wrapper:active .nav_icon{
     color: #000;
 } */
-

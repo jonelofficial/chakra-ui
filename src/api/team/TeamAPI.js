@@ -9,7 +9,7 @@ export const getTeams = async () => {
   return response.json();
 };
 
-//Remove
+//Delete
 export const removeTeam = async (id) => {
   const response = await fetch(`${baseUrl}/${id}`, {
     method: "DELETE",
@@ -18,4 +18,28 @@ export const removeTeam = async (id) => {
     throw new Error(response.json().message);
   }
   return true;
+};
+
+//Get
+export const getTeam = async ({ queryKey }) => {
+  const [_key, { PARAMETER }] = queryKey;
+  const response = await fetch(`${baseUrl}/${PARAMETER}`);
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
+};
+
+//Update
+export const updateTeam = async ({ ID, ...data }) => {
+  console.log("data :", data, " id :", ID);
+  const response = await fetch(`${baseUrl}/${ID}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    throw new Error(response.json().message);
+  }
+  return response.json();
 };
