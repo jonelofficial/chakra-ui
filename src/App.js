@@ -37,35 +37,26 @@ const App = () => {
   return (
     <Flex h="100vh" overflow="hidden">
       <Sidebar token={token} />
-      <Box w="100%">
+      <Flex flexDirection="column" w="100%">
         <Header token={token} />
-        <Box w="100%" h="100%">
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/team" element={<Team />} />
-            <Route
-              path="/team/team-list"
-              element={
-                <QueryClientProvider client={queryClient}>
-                  <TeamList />
-                </QueryClientProvider>
-              }
-            >
-              <Route
-                path="/team/team-list/edit-team/:id"
-                element={
-                  <QueryClientProvider client={queryClient}>
-                    <EditTeam />
-                  </QueryClientProvider>
-                }
-              />
-            </Route>
-            <Route path="/calendar" element={<Calendar />} />
-            <Route path="/request" element={<Request />} />
-            <Route path="/support" element={<Support />} />
-          </Routes>
-        </Box>
-      </Box>
+        <QueryClientProvider client={queryClient}>
+          <Box w="100%" h="100%">
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/team" element={<Team />} />
+              <Route path="/team/team-list" element={<TeamList />}>
+                <Route
+                  path="/team/team-list/edit-team/:id"
+                  element={<EditTeam />}
+                />
+              </Route>
+              <Route path="/calendar" element={<Calendar />} />
+              <Route path="/request" element={<Request />} />
+              <Route path="/support" element={<Support />} />
+            </Routes>
+          </Box>
+        </QueryClientProvider>
+      </Flex>
     </Flex>
   );
 };

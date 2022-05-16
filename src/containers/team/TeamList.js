@@ -1,4 +1,4 @@
-import { Box, Spinner } from "@chakra-ui/react";
+import { Box, Center, Spinner } from "@chakra-ui/react";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { getTeams } from "../../api/team/TeamAPI";
@@ -12,10 +12,18 @@ const TeamList = () => {
   };
   const { data, isLoading, isError } = UseFetch(props);
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <Center h="100%">
+        <Spinner />
+      </Center>
+    );
   }
   if (isError) {
-    return <Box>Error </Box>;
+    return (
+      <Center h="100%">
+        <Box>Error </Box>
+      </Center>
+    );
   }
 
   return (
