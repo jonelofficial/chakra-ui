@@ -25,7 +25,6 @@ const Sidebar = ({ token }) => {
           <Hamburger toggled={isOpen} toggle={setOpen} color="#fff" size={25} />
         </Flex>
         <Flex flexDirection="column">
-          {" "}
           {navlink.map(({ name, icon, path, accordion, defaultShow }, index) =>
             defaultShow && accordion.length ? (
               <AccordionSidebar
