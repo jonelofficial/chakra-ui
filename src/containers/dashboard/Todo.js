@@ -46,6 +46,7 @@ const Todo = ({ todo, isMutating, id }) => {
               colorScheme="teal"
               d="none"
               size="xs"
+              mr="2"
               onClick={() => setEdit(!edit)}
             >
               Edit
@@ -54,6 +55,7 @@ const Todo = ({ todo, isMutating, id }) => {
         </>
       ) : (
         <form
+          style={{ width: "100%" }}
           onSubmit={handleSubmit(onSubmit)}
           onClick={(e) => e.stopPropagation()}
         >
@@ -71,7 +73,7 @@ const Todo = ({ todo, isMutating, id }) => {
               <Button
                 className="button_hover"
                 colorScheme="orange"
-                ml="3"
+                ml="2"
                 size="xs"
                 onClick={() => setEdit(false)}
               >
@@ -80,7 +82,7 @@ const Todo = ({ todo, isMutating, id }) => {
               <Button
                 className="button_hover"
                 colorScheme="teal"
-                ml="3"
+                ml="2"
                 type="submit"
                 size="xs"
                 mr="2"
