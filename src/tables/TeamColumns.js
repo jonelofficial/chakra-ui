@@ -49,8 +49,9 @@ export const COLUMNS = [
       const { isOpen, onOpen, onClose } = useDisclosure();
       const initialProps = {
         API: removeTeam,
-        ID: props.row.original.id,
+        // ID: props.row.original.id,
         onClose: onClose,
+        DATA_NAME: "teams",
       };
       const { remove, isLoading } = UseRemove(initialProps);
       return (
@@ -79,7 +80,7 @@ export const COLUMNS = [
                   Close
                 </Button>
                 <Button
-                  onClick={remove}
+                  onClick={() => remove(props.row.original.id)}
                   isLoading={isLoading}
                   colorScheme="orange"
                 >

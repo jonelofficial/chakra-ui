@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 
-const UseUpdate = ({ API, HANDLE_SUBMIT, ID, handleClose }) => {
+const UseUpdate = ({ API, HANDLE_SUBMIT, ID, handleClose, setEdit, reset }) => {
   // To refetch table data
   const queryClient = useQueryClient();
   // To process updating
@@ -39,6 +39,37 @@ const UseUpdate = ({ API, HANDLE_SUBMIT, ID, handleClose }) => {
         });
       }
     });
+
+  // Function handle updating data from form Edit
+  const onSubmitEdit = async (data) => {
+    try {
+      const result = await mutateAsync({ ...data, ID });
+      if (result) {
+        queryClient.invalidateQueries("todolists");
+        setEdit(false);
+        reset();
+        handleClose && handleClose();
+        toast({
+          title: "Update",
+          description: "Done Updating.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+          position: "bottom-left",
+        });
+      }
+    } catch (error) {
+      handleClose && handleClose();
+      toast({
+        title: "Error Updating",
+        description: "Error.",
+        status: "error",
+        duration: 9000,
+        isClosable: true,
+        position: "bottom-left",
+      });
+    }
+  };
 
   const handleClickTodo = async (ID, data) => {
     const newData = { todo: data[ID - 1]["todo"], status: false, id: ID };
@@ -99,7 +130,13 @@ const UseUpdate = ({ API, HANDLE_SUBMIT, ID, handleClose }) => {
       });
     }
   };
-  return { onSubmit, isMutating, handleClickTodo, handleClickDoneTodo };
+  return {
+    onSubmit,
+    isMutating,
+    handleClickTodo,
+    handleClickDoneTodo,
+    onSubmitEdit,
+  };
 };
 
 export default UseUpdate;

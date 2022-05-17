@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQueryClient } from "react-query";
 
-const UseRemove = ({ API, ID, onClose }) => {
+const UseRemove = ({ API, onClose, DATA_NAME }) => {
   // To refetch table data
   const queryClient = useQueryClient();
   // To process deleting
@@ -9,16 +9,17 @@ const UseRemove = ({ API, ID, onClose }) => {
   // For messaging
   const toast = useToast();
   // Function handle remove data
-  const remove = async () => {
+  const remove = async (id) => {
     try {
       // props.row.original.id is the id of row data
-      const result = await mutateAsync(ID);
+      const result = await mutateAsync(id);
+      // const id = document.getElementById(id).classList.add("click_delete");
       if (result) {
-        queryClient.invalidateQueries("teams");
-        onClose();
+        queryClient.invalidateQueries(DATA_NAME);
+        onClose && onClose();
         toast({
-          title: "Delete Team",
-          description: "Done Deleting team.",
+          title: "Delete",
+          description: "Done Deleting.",
           status: "success",
           duration: 9000,
           isClosable: true,
@@ -26,9 +27,9 @@ const UseRemove = ({ API, ID, onClose }) => {
         });
       }
     } catch (error) {
-      onClose();
+      onClose && onClose();
       toast({
-        title: "Error Deleting Team",
+        title: "Error Deleting",
         description: "Error.",
         status: "error",
         duration: 9000,
@@ -37,6 +38,7 @@ const UseRemove = ({ API, ID, onClose }) => {
       });
     }
   };
+
   return { remove, isLoading };
 };
 

@@ -8,7 +8,7 @@ export const getTodolists = async () => {
       return response.json();
     }
   } catch (error) {
-    console.log("API GET ERROR: ", error);
+    console.log("API FETCH ERROR: ", error);
   }
 };
 
@@ -43,5 +43,32 @@ export const createTodo = async (data) => {
     }
   } catch (error) {
     console.log("API POST ERROR: ", error);
+  }
+};
+
+// Delete
+export const deleteTodo = async (id) => {
+  try {
+    const response = await fetch(`${baseUrl}/${id}`, {
+      method: "DELETE",
+    });
+    if (response) {
+      return true;
+    }
+  } catch (error) {
+    console.log("API DELETE ERROR: ", error);
+  }
+};
+
+// Get
+export const getTodo = async ({ queryKey }) => {
+  const [_key, { id }] = queryKey;
+  try {
+    const response = await fetch(`${baseUrl}/${id}`);
+    if (response) {
+      return response.json();
+    }
+  } catch (error) {
+    console.log("API GET ERROR: ", error);
   }
 };
