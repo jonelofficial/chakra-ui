@@ -98,13 +98,13 @@ const Dashboard = () => {
                   placement="left"
                 >
                   <Flex
+                    p="2"
                     className="todo"
                     alignItems="center"
                     _hover={{ bg: "accent", color: "gray" }}
                   >
                     <Box
                       w="100%"
-                      p="2"
                       id={id}
                       cursor="pointer"
                       onClick={() => handleClickTodo(id, data)}
@@ -112,7 +112,11 @@ const Dashboard = () => {
                       {/* insert Todo */}
                       <Todo todo={todo} isMutating={isMutating} id={id} />
                     </Box>
-                    <Flex alignItems="center" mr="2">
+                    <Flex
+                      alignItems="center"
+                      mr="2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <ButtonDelete id={id} />
                     </Flex>
                   </Flex>
