@@ -1,10 +1,8 @@
 import {
   Box,
-  Button,
   Center,
   Flex,
   Heading,
-  Input,
   Spinner,
   Tooltip,
   useColorModeValue,
@@ -16,12 +14,16 @@ import {
   getTodolists,
   updateTodolist,
 } from "../api/todolist/TodolistAPI";
+import ButtonDelete from "../composition/ButtonDelete";
 import UseCreate from "../custom_hook/react_query/UseCreate";
 import UseFetch from "../custom_hook/react_query/UseFetch";
 import UseUpdate from "../custom_hook/react_query/UseUpdate";
+import Form from "./dashboard/Form";
+import Todo from "./dashboard/Todo";
 
 const Dashboard = () => {
   const bg = useColorModeValue("accent", "#25252599");
+  // HANDLE FORM SUBMIT
   const {
     register,
     handleSubmit,
@@ -32,6 +34,8 @@ const Dashboard = () => {
   const onSubmit = (data) => {
     onFormSubmit(data);
   };
+  //
+
   // UPDATE
   const initialPropsUpdate = { API: updateTodolist };
   const { handleClickTodo, handleClickDoneTodo, isMutating } =
@@ -46,12 +50,12 @@ const Dashboard = () => {
   const { onFormSubmit, createIsLoading } = UseCreate(initialPropsCreate);
   //
 
-  // GET
-  const initialProps = {
+  // GET TODOLIST
+  const initialPropsGet = {
     API: getTodolists,
     DATA_NAME: "todolists",
   };
-  const { data, isLoading, isError } = UseFetch(initialProps);
+  const { data, isLoading, isError } = UseFetch(initialPropsGet);
   if (isLoading) {
     return (
       <Center h="100%">
@@ -75,32 +79,15 @@ const Dashboard = () => {
           <Heading size="md" textAlign="center" mb="3">
             Todolist
           </Heading>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Flex>
-              <Input
-                {...register("todo", { required: true })}
-                placeholder="Enter todolist"
-              />
-              <Input d="none" defaultValue={true} {...register("status")} />
-
-              <Button
-                colorScheme="blue"
-                ml="3"
-                type="submit"
-                isLoading={createIsLoading}
-              >
-                Add
-              </Button>
-            </Flex>
-            {errors.todo && (
-              <Box p="2" color="red" fontSize="xs" textAlign="center">
-                This field is required
-              </Box>
-            )}
-          </form>
+          <Form
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+            register={register}
+            createIsLoading={createIsLoading}
+            errors={errors}
+          />
         </Box>
-        <Box mt="3" overflow="auto" maxH="30em">
+        <Box mt="3" overflowY="auto" maxH="30em">
           {data.reverse().map(
             ({ todo, status, id }, index) =>
               status && (
@@ -108,20 +95,27 @@ const Dashboard = () => {
                   key={index}
                   label="Click to finish"
                   hasArrow
-                  placement="right"
+                  placement="left"
                 >
-                  <Box
-                    p="2"
-                    id={id}
-                    onClick={() => handleClickTodo(id, data)}
-                    cursor="pointer"
+                  <Flex
+                    className="todo"
+                    alignItems="center"
                     _hover={{ bg: "accent", color: "gray" }}
                   >
-                    <Flex justifyContent="space-between" justifyItems="center">
-                      {todo}
-                      {isMutating && <Spinner d="none" className="spinner" />}
+                    <Box
+                      w="100%"
+                      p="2"
+                      id={id}
+                      cursor="pointer"
+                      onClick={() => handleClickTodo(id, data)}
+                    >
+                      {/* insert Todo */}
+                      <Todo todo={todo} isMutating={isMutating} id={id} />
+                    </Box>
+                    <Flex alignItems="center" mr="2">
+                      <ButtonDelete id={id} />
                     </Flex>
-                  </Box>
+                  </Flex>
                 </Tooltip>
               )
           )}
@@ -132,7 +126,7 @@ const Dashboard = () => {
                   key={index}
                   label="Click to unfinish"
                   hasArrow
-                  placement="right"
+                  placement="left"
                 >
                   <Box
                     id={id}

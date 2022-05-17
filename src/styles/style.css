@@ -45,6 +45,12 @@
 .click_untodo .spinner{
   display: block!important;
 }
+.todo:hover .button_hover{
+  display: block;
+}
+.button_hover .chakra-button__spinner.chakra-button__spinner--start.css-1aamklj{
+  margin-left: 12px;
+}
 
 @media screen and (max-width: 1024px) {
   table {
