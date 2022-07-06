@@ -43,3 +43,21 @@ export const updateTeam = async ({ ID, ...data }) => {
   }
   return response.json();
 };
+
+//Create
+export const createTeam = async (data) => {
+  try {
+    const response = await fetch(baseUrl, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (response) {
+      return response.json();
+    }
+  } catch (error) {
+    console.log("API TEAM POST ERROR: ", error);
+  }
+};

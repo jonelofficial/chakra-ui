@@ -20,6 +20,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 // Style
 import "./styles/style.css";
 import EditTeam from "./containers/team/EditTeam";
+import StepContext from "./components/StepContext";
 
 const App = () => {
   const queryClient = new QueryClient({
@@ -43,7 +44,16 @@ const App = () => {
           <Box w="100%" h="100%">
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
+
+              <Route
+                path="/team"
+                element={
+                  <StepContext>
+                    <Team />
+                  </StepContext>
+                }
+              />
+
               <Route path="/team/team-list" element={<TeamList />}>
                 <Route
                   path="/team/team-list/edit-team/:id"
